@@ -1,0 +1,24 @@
+language: go
+sudo: false
+
+notifications:
+  email: false
+
+go:
+  - "1.11"
+
+env:
+  - GO111MODULE=on
+
+install:
+  - go get -v ./...
+
+before_script:
+  - go get golang.org/x/lint/golint   # Install golint
+  - go get github.com/mattn/goveralls # Go wrapper to Coveralls
+
+script:
+  - go vet ./...                             # go vet is the official Go static analyzer
+  - golint -set_exit_status $(go list ./...) # one last linter
+  - go test -v -race ./...                   # Run the tests with race-condition enabled
+  - $GOPATH/bin/goveralls -service=travis-ci # Report coverage to Coveralls
