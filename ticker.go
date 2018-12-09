@@ -1,4 +1,4 @@
-package main
+package coinbase
 
 import (
 	"errors"
@@ -7,8 +7,8 @@ import (
 	"github.com/mauricioklein/coinbase-connector/types"
 )
 
-// Ticker returns the ticker for the given productID
-func (c *Connector) Ticker(productID string) (*types.TickerResponse, error) {
+// GetTicker returns the ticker for the given productID
+func (c *Connector) GetTicker(productID string) (*types.TickerResponse, error) {
 	url := fmt.Sprintf("%s/products/%s/ticker", c.credentials.URI, productID)
 	resp, err := c.client.Get(url)
 	if err != nil {

@@ -1,4 +1,4 @@
-package main
+package coinbase
 
 import (
 	"testing"
@@ -30,7 +30,7 @@ func TestGetTime(t *testing.T) {
 	// Mock time request to Coinbase
 	gock.New(credentials.URI).
 		Get("/time").
-		Reply(404).
+		Reply(200).
 		JSON(timeResponse)
 
 	req := req.New()

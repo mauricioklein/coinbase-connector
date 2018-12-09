@@ -1,4 +1,4 @@
-package main
+package coinbase
 
 import (
 	"testing"
@@ -12,7 +12,7 @@ import (
 	"gopkg.in/h2non/gock.v1"
 )
 
-func TestValidTicker(t *testing.T) {
+func TestGetTicker_Success(t *testing.T) {
 	credentials := Credentials{
 		URI:        "https://api-public.sandbox.pro.coinbase.com",
 		Key:        "A_Key",
@@ -42,7 +42,7 @@ func TestValidTicker(t *testing.T) {
 
 	gock.InterceptClient(req.Client())
 
-	resp, err := conn.Ticker("BTC-USD")
+	resp, err := conn.GetTicker("BTC-USD")
 	assert.NoError(t, err)
 
 	// Check ticker attributes
@@ -55,7 +55,7 @@ func TestValidTicker(t *testing.T) {
 	assert.Equal(t, tickerResponse.Volume, resp.Volume)
 }
 
-func TestInvalidTicker(t *testing.T) {
+func TestGetTicker_Error(t *testing.T) {
 	credentials := Credentials{
 		URI:        "https://api-public.sandbox.pro.coinbase.com",
 		Key:        "abcd1234efgh5678",
@@ -75,7 +75,7 @@ func TestInvalidTicker(t *testing.T) {
 
 	gock.InterceptClient(req.Client())
 
-	resp, err := conn.Ticker("FOO-BAR")
+	resp, err := conn.GetTicker("FOO-BAR")
 	assert.Nil(t, resp)
 	assert.Error(t, err)
 }
