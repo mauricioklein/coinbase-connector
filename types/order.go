@@ -2,9 +2,18 @@ package types
 
 import "time"
 
-// Order defines the response from an
+// OrderRequest defines a order creation
+// payload to Coinbase
+type OrderRequest struct {
+	Size      string `json:"size"`
+	Price     string `json:"price"`
+	Side      string `json:"side"`
+	ProductID string `json:"product_id"`
+}
+
+// OrderResponse defines the response from an
 // order creation in Coinbase
-type Order struct {
+type OrderResponse struct {
 	ID            string    `json:"id"`
 	Price         string    `json:"price"`
 	Size          string    `json:"size"`

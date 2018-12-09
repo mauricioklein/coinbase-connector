@@ -2,7 +2,9 @@ package types
 
 import "time"
 
-type Ticker struct {
+// TickerResponse defines the Coinbase
+// response for a Ticker request
+type TickerResponse struct {
 	Price   string    `json:"price"`
 	Size    string    `json:"size"`
 	Bid     string    `json:"bid"`

@@ -2,9 +2,9 @@ package types
 
 import "time"
 
-// Time defines the time response returned by
-// Coinbase API
-type Time struct {
+// TimeResponse defines the time response
+// returned by Coinbase API
+type TimeResponse struct {
 	ISO   time.Time
 	Epoch float64
 }
