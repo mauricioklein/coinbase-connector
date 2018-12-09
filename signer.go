@@ -7,6 +7,8 @@ import (
 	"fmt"
 )
 
+// Information about the signing process can be found on Coinbase's official
+// documentation: https://docs.pro.coinbase.com/#signing-a-message
 func generateSignature(body, timestamp, secret string) (string, error) {
 	preHash := fmt.Sprintf("%s%s%s%s", timestamp, "POST", "/orders", body)
 
