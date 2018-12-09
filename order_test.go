@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 	"time"
@@ -42,10 +43,13 @@ func TestCreateOrder_Success(t *testing.T) {
 
 	defer gock.Off()
 
+	orderReqMarshal, _ := json.Marshal(&orderRequest)
+	orderReqJSON := string(orderReqMarshal)
+
 	// Mock time request to Coinbase
 	gock.New(credentials.URI).
 		Get("/time").
-		Reply(404).
+		Reply(200).
 		JSON(timeResponse)
 
 	// Mock POST /orders request to Coinbase
@@ -59,6 +63,8 @@ func TestCreateOrder_Success(t *testing.T) {
 			"CB-ACCESS-TIMESTAMP":  fmt.Sprintf("%f", timeResponse.Epoch),
 			"CB-ACCESS-PASSPHRASE": credentials.Passphrase,
 		}).
+		MatchType("json").
+		JSON(orderReqJSON).
 		Reply(200).
 		JSON(orderResponse)
 

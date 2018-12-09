@@ -20,13 +20,6 @@ func (c *Connector) CreateOrder(orderReq *types.OrderRequest) (*types.OrderRespo
 
 	timestamp := fmt.Sprintf("%f", time.Epoch)
 
-	// reqMap := map[string]string{
-	// 	"price":      "0.01",
-	// 	"size":       "0.100",
-	// 	"side":       "buy",
-	// 	"product_id": "BTC-USD",
-	// }
-
 	m, err := json.Marshal(orderReq)
 	if err != nil {
 		return nil, err
@@ -34,7 +27,7 @@ func (c *Connector) CreateOrder(orderReq *types.OrderRequest) (*types.OrderRespo
 
 	body := string(m)
 
-	sign, err := generateSignature(body, timestamp, c.credentials.Secret) // c.signature(body, timestamp)
+	sign, err := generateSignature(body, timestamp, c.credentials.Secret)
 	if err != nil {
 		return nil, err
 	}
