@@ -41,7 +41,7 @@ func (c *Connector) CreateOrder(orderReq *types.OrderRequest) (*types.OrderRespo
 		"CB-ACCESS-PASSPHRASE": c.credentials.Passphrase,
 	}
 
-	resp, err := c.client.Post(url, headers, m)
+	resp, err := c.req.Post(url, headers, m)
 	if err != nil {
 		return nil, err
 	}

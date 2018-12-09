@@ -4,7 +4,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imroc/req"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/mauricioklein/coinbase-connector/types"
@@ -33,10 +32,9 @@ func TestGetTime(t *testing.T) {
 		Reply(200).
 		JSON(timeResponse)
 
-	req := req.New()
-	conn := NewConnector(req, &credentials)
+	conn := New(credentials)
 
-	gock.InterceptClient(req.Client())
+	gock.InterceptClient(conn.Client())
 
 	resp, err := conn.GetTime()
 

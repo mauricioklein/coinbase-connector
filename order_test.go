@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imroc/req"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/mauricioklein/coinbase-connector/types"
@@ -23,8 +22,8 @@ func TestCreateOrder_Success(t *testing.T) {
 	}
 
 	orderRequest := types.OrderRequest{
-		Price:     "0.01",
-		Size:      "0.100",
+		Price:     0.01,
+		Size:      0.100,
 		Side:      "buy",
 		ProductID: "BTC-USD",
 	}
@@ -68,10 +67,9 @@ func TestCreateOrder_Success(t *testing.T) {
 		Reply(200).
 		JSON(orderResponse)
 
-	req := req.New()
-	conn := NewConnector(req, &credentials)
+	conn := New(credentials)
 
-	gock.InterceptClient(req.Client())
+	gock.InterceptClient(conn.Client())
 
 	resp, err := conn.CreateOrder(&orderRequest)
 

@@ -4,7 +4,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/imroc/req"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/mauricioklein/coinbase-connector/types"
@@ -37,10 +36,9 @@ func TestGetTicker_Success(t *testing.T) {
 		Reply(200).
 		JSON(tickerResponse)
 
-	req := req.New()
-	conn := NewConnector(req, &credentials)
+	conn := New(credentials)
 
-	gock.InterceptClient(req.Client())
+	gock.InterceptClient(conn.Client())
 
 	resp, err := conn.GetTicker("BTC-USD")
 	assert.NoError(t, err)
@@ -70,10 +68,9 @@ func TestGetTicker_Error(t *testing.T) {
 		Reply(404).
 		JSON(`{"message": "NotFound"}`)
 
-	req := req.New()
-	conn := NewConnector(req, &credentials)
+	conn := New(credentials)
 
-	gock.InterceptClient(req.Client())
+	gock.InterceptClient(conn.Client())
 
 	resp, err := conn.GetTicker("FOO-BAR")
 	assert.Nil(t, resp)

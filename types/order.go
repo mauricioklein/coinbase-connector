@@ -5,10 +5,10 @@ import "time"
 // OrderRequest defines a order creation
 // payload to Coinbase
 type OrderRequest struct {
-	Size      string `json:"size"`
-	Price     string `json:"price"`
-	Side      string `json:"side"`
-	ProductID string `json:"product_id"`
+	Size      float64 `json:"size"`
+	Price     float64 `json:"price"`
+	Side      string  `json:"side"`
+	ProductID string  `json:"product_id"`
 }
 
 // OrderResponse defines the response from an
