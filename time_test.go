@@ -13,6 +13,13 @@ import (
 )
 
 func TestGetTime(t *testing.T) {
+	credentials := Credentials{
+		URI:        "https://api-public.sandbox.pro.coinbase.com",
+		Key:        "abcd1234efgh5678",
+		Secret:     "ABCDEFGH12345678",
+		Passphrase: "arandompassphrase",
+	}
+
 	timeResponse := types.TimeResponse{
 		ISO:   time.Time{},
 		Epoch: 123456.00,
@@ -21,13 +28,13 @@ func TestGetTime(t *testing.T) {
 	defer gock.Off()
 
 	// Mock time request to Coinbase
-	gock.New("https://api-public.sandbox.pro.coinbase.com/").
+	gock.New(credentials.URI).
 		Get("/time").
 		Reply(404).
 		JSON(timeResponse)
 
 	req := req.New()
-	conn := NewConnector(req)
+	conn := NewConnector(req, &credentials)
 
 	gock.InterceptClient(req.Client())
 

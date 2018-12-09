@@ -8,7 +8,7 @@ import (
 
 // GetTime returns the time from the Coinbase API
 func (c *Connector) GetTime() (*types.TimeResponse, error) {
-	url := fmt.Sprintf("%s/time", coinbaseURI)
+	url := fmt.Sprintf("%s/time", c.credentials.URI)
 	resp, err := c.client.Get(url)
 	if err != nil {
 		return nil, err

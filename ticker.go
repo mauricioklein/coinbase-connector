@@ -9,7 +9,7 @@ import (
 
 // Ticker returns the ticker for the given productID
 func (c *Connector) Ticker(productID string) (*types.TickerResponse, error) {
-	url := fmt.Sprintf("%s/products/%s/ticker", coinbaseURI, productID)
+	url := fmt.Sprintf("%s/products/%s/ticker", c.credentials.URI, productID)
 	resp, err := c.client.Get(url)
 	if err != nil {
 		return nil, err

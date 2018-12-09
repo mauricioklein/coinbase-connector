@@ -13,6 +13,13 @@ import (
 )
 
 func TestValidTicker(t *testing.T) {
+	credentials := Credentials{
+		URI:        "https://api-public.sandbox.pro.coinbase.com",
+		Key:        "A_Key",
+		Secret:     "A_Secret",
+		Passphrase: "A_Passphrase",
+	}
+
 	tickerResponse := types.TickerResponse{
 		Price:   "5015.00000000",
 		Size:    "0.00700000",
@@ -25,13 +32,13 @@ func TestValidTicker(t *testing.T) {
 
 	defer gock.Off()
 
-	gock.New("https://api-public.sandbox.pro.coinbase.com/").
+	gock.New(credentials.URI).
 		Get("products/BTC-USD/ticker").
 		Reply(200).
 		JSON(tickerResponse)
 
 	req := req.New()
-	conn := NewConnector(req)
+	conn := NewConnector(req, &credentials)
 
 	gock.InterceptClient(req.Client())
 
@@ -49,15 +56,22 @@ func TestValidTicker(t *testing.T) {
 }
 
 func TestInvalidTicker(t *testing.T) {
+	credentials := Credentials{
+		URI:        "https://api-public.sandbox.pro.coinbase.com",
+		Key:        "abcd1234efgh5678",
+		Secret:     "ABCDEFGH12345678",
+		Passphrase: "arandompassphrase",
+	}
+
 	defer gock.Off()
 
-	gock.New("https://api-public.sandbox.pro.coinbase.com/").
+	gock.New(credentials.URI).
 		Get("products/FOO-BAR/ticker").
 		Reply(404).
 		JSON(`{"message": "NotFound"}`)
 
 	req := req.New()
-	conn := NewConnector(req)
+	conn := NewConnector(req, &credentials)
 
 	gock.InterceptClient(req.Client())
 
