@@ -10,7 +10,7 @@ import (
 // GetTicker returns the ticker for the given productID
 func (c *Connector) GetTicker(productID string) (*types.TickerResponse, error) {
 	url := fmt.Sprintf("%s/products/%s/ticker", c.credentials.URI, productID)
-	resp, err := c.client.Get(url)
+	resp, err := c.req.Get(url)
 	if err != nil {
 		return nil, err
 	}

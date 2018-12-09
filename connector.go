@@ -1,14 +1,16 @@
 package coinbase
 
 import (
+	"net/http"
+
 	"github.com/imroc/req"
 )
 
 // Connector defines the interface between the library
 // and the Coinbase API
 type Connector struct {
-	client      *req.Req
-	credentials *Credentials
+	req         *req.Req
+	credentials Credentials
 }
 
 // Credentials define the Coinbase credentials
@@ -20,10 +22,15 @@ type Credentials struct {
 	Passphrase string
 }
 
-// NewConnector instantiates a new connector
-func NewConnector(client *req.Req, cred *Credentials) *Connector {
+// New instantiates a new connector
+func New(cred Credentials) *Connector {
 	return &Connector{
-		client:      client,
+		req:         req.New(),
 		credentials: cred,
 	}
+}
+
+// Client returns the underlying HTTP Client
+func (c *Connector) Client() *http.Client {
+	return c.req.Client()
 }
