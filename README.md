@@ -15,7 +15,7 @@ A simple connector to Coinbase API
 ## Instalation
 
 ```bash
-    go get github.com/mauricioklein/coinbase-connector
+$ go get github.com/mauricioklein/coinbase-connector
 ```
 
 ## Setup

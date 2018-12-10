@@ -1,7 +1,6 @@
 /*
 Package types defines the schema for requests and responses for Coinbase API.
-
-All structs are assigned with JSON directives, which matches exactly the payload sent and received from Coinbase
+All structs are assigned with JSON directives, which matches exactly the payload sent and received from Coinbase.
 
 Types
 
@@ -53,5 +52,4 @@ Types
 		Epoch float64
 	}
 */
-
 package types

@@ -1,6 +1,5 @@
 /*
-Package coinbase is the entry point for the Coinbase Connector
-
+Package coinbase is the entry point for the Coinbase Connector.
 Connector instantiation, authentication and interface with Coinbase API is handled by this package.
 
 Basics
@@ -60,5 +59,4 @@ This method returns:
 - A TimeResponse struct, with the response from Coinbase (in case of success)
 - An error (in case of failure)
 */
-
 package coinbase
